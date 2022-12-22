@@ -5,7 +5,6 @@ using Users.Api.Services.Interfaces;
 
 namespace Users.Api.Endpoints
 {
-    //[HttpDelete("users/{id:guid}"), AllowAnonymous]
     public class DeleteUserEndpoint : Endpoint<DeleteUserRequest>
     {
         #region Fields
@@ -29,7 +28,7 @@ namespace Users.Api.Endpoints
         {
             Delete("users/{id:guid}");
             AllowAnonymous();
-            //Version(1);
+            Version(1);
         }
 
         public override async Task HandleAsync(DeleteUserRequest req, CancellationToken ct)

@@ -7,7 +7,6 @@ using Users.Api.Services.Interfaces;
 
 namespace Users.Api.Endpoints
 {
-    //[HttpPost("users"), AllowAnonymous]
     public class CreateUserEndpoint : Endpoint<CreateUserRequest, UserResponse>
     {
         #region Fields
@@ -31,19 +30,17 @@ namespace Users.Api.Endpoints
         {
             Post("users");
             AllowAnonymous();
-            //Version(1);
+            Version(1);
         }
 
         public override async Task HandleAsync(CreateUserRequest req, CancellationToken ct)
         {
             var user = req.ToUser();
-
             await userService.CreateAsync(user);
-
             var userResponse = user.ToUserResponse();
-
             await SendCreatedAtAsync<GetUserEndpoint>(new { Id = user.Id.Value }, userResponse, generateAbsoluteUrl: true, cancellation: ct);
         }
+
         #endregion
     }
 }

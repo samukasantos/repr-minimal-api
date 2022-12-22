@@ -1,5 +1,6 @@
 ﻿using FastEndpoints;
 using FastEndpoints.Swagger;
+using Users.Api.Configuration.Services;
 using Users.Api.Contracts.Responses;
 
 namespace Users.Api.Configuration
@@ -25,6 +26,10 @@ namespace Users.Api.Configuration
                     {
                         Errors = failures.Select(m => m.ErrorMessage).ToList()
                     };
+                };
+                c.Endpoints.Configurator = ep =>
+                {
+                    ep.PreProcessors(Order.Before, new LoggingPreProcessor());
                 };
             });
         }

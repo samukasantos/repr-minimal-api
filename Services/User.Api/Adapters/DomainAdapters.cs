@@ -34,7 +34,7 @@ namespace Users.Api.Adapters
             };
         }
 
-        static User ToUser(this UserDto userDto)
+        public static User ToUser(this UserDto userDto)
         {
             return new User
             {

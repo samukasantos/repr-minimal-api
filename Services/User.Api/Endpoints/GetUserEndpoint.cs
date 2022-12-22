@@ -7,7 +7,6 @@ using Users.Api.Services.Interfaces;
 
 namespace Users.Api.Endpoints
 {
-    //[HttpGet("users/{id:guid}"), AllowAnonymous]
     public class GetUserEndpoint : Endpoint<GetUserRequest, UserResponse>
     {
         #region Fields
@@ -31,7 +30,7 @@ namespace Users.Api.Endpoints
         {
             Get("users/{id:guid}");
             AllowAnonymous();
-            //Version(1);
+            Version(1);
         }
 
         public override async Task HandleAsync(GetUserRequest req, CancellationToken ct)

@@ -30,7 +30,7 @@ namespace Users.Api.Data
                 Username TEXT NOT NULL,
                 Fullname TEXT NOT NULL,
                 Email TEXT NOT NULL,
-                DataOfBirth TEXT NOT NULL)");
+                DateOfBirth TEXT NOT NULL)");
         }
 
         #endregion
