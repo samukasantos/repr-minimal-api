@@ -7,7 +7,7 @@ using Users.Api.Services.Interfaces;
 
 namespace Users.Api.Endpoints
 {
-    [HttpPost("users"), AllowAnonymous]
+    //[HttpPost("users"), AllowAnonymous]
     public class CreateUserEndpoint : Endpoint<CreateUserRequest, UserResponse>
     {
         #region Fields
@@ -26,6 +26,13 @@ namespace Users.Api.Endpoints
         #endregion
 
         #region Methods
+
+        public override void Configure()
+        {
+            Post("users");
+            AllowAnonymous();
+            //Version(1);
+        }
 
         public override async Task HandleAsync(CreateUserRequest req, CancellationToken ct)
         {

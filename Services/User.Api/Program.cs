@@ -3,21 +3,22 @@
 using Users.Api.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddSecrets();
 var config = builder.Configuration;
 
-builder.Services.AddFastendpoints();
-builder.Services.AddSwagger();
-builder.Services.AddHealthCheck(config);
+builder.Services.AddLoggings();
 builder.Services.AddDependencies(config);
-
+builder.Services.AddFastendpoints();
+builder.Services.AddHealthCheck(config);
+builder.Services.AddSwagger();
 
 var app = builder.Build();
 
-app.UseExceptionMiddleware();
-app.UseFastendpointsConfiguration();
 app.UseLogging(config);
-app.UseSwagger();
+app.UseFastendpointsConfiguration();
+app.UseMiddlewares();
 app.UseHealthCheck();
+app.UseSwagger();
 app.UseDatabaseConfiguration();
 
 app.Run();

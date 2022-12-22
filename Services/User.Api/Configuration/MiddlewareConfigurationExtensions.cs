@@ -1,4 +1,5 @@
-﻿using Users.Api.Validation.Middleware;
+﻿
+using Users.Api.Validation.Middleware;
 
 namespace Users.Api.Configuration
 {
@@ -6,9 +7,10 @@ namespace Users.Api.Configuration
     {
         #region Methods
 
-        public static void UseExceptionMiddleware(this WebApplication app) 
+        public static void UseMiddlewares(this WebApplication app) 
         {
             app.UseMiddleware<ValidationExceptionMiddleware>();
+
         }
 
         #endregion

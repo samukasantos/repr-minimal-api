@@ -10,7 +10,13 @@ namespace Users.Api.Configuration
 
         public static void AddSwagger(this IServiceCollection services)
         {
-            services.AddSwaggerDoc();
+            services.AddSwaggerDoc(options => 
+            {
+                options.DocumentName = "Initial Release";
+                options.Title = "Users.Api";
+                options.Version = "v1.0";
+            }, 
+            maxEndpointVersion: 1);
         }
 
         public static void UseSwagger(this WebApplication app)

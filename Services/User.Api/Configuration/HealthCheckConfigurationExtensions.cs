@@ -1,6 +1,7 @@
 ﻿using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Users.Api.Configuration.Services;
 
 namespace Users.Api.Configuration
@@ -10,16 +11,14 @@ namespace Users.Api.Configuration
         #region Methods
         
         public static void AddHealthCheck(this IServiceCollection services, IConfiguration configuration)
-        {
+        {   
             services.AddHealthChecks()
                 //.AddCheck<SqliteDatabaseHealthChecks>("")
                 .AddSqlite(configuration.GetValue<string>("Database:ConnectionString"), name: "UserDatabase");
             
-            services.AddHealthChecksUI(options => 
-            {
-                //options.AddHealthCheckEndpoint("e1", "")
-            })
-            .AddSqliteStorage(configuration.GetValue<string>("HealthcheckDb:ConnectionString"));
+            services
+                .AddHealthChecksUI()
+                .AddSqliteStorage(configuration.GetValue<string>("HealthcheckDb:ConnectionString"));
         }
 
         public static void UseHealthCheck(this WebApplication app) 
@@ -28,8 +27,8 @@ namespace Users.Api.Configuration
             {
                 Predicate = _ => true,
                 ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
-            });
-            app.UseHealthChecksUI(options => 
+            })
+            .UseHealthChecksUI(options => 
             {
                 options.UIPath = "/healthz-ui";
             });

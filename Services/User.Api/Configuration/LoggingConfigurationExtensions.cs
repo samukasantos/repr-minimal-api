@@ -3,21 +3,23 @@ using KissLog.AspNetCore;
 using KissLog.CloudListeners.Auth;
 using KissLog.CloudListeners.RequestLogsListener;
 using KissLog.Formatters;
+using Users.Api.Configuration.Services;
 
 namespace Users.Api.Configuration
 {
-    public static class LogginConfigurationExtensions
+    public static class LoggingConfigurationExtensions
     {
         #region Methods
 
-        public static void AddLogging(this IServiceCollection services)
+        public static void AddLoggings(this IServiceCollection services)
         {
             services.AddHttpContextAccessor();
-            services.AddScoped<IKLogger>((provider) => Logger.Factory.Get());
             services.AddLogging(logging =>
             {
+                logging.ClearProviders();
+                logging.AddConsole();
                 logging.AddKissLog(options =>
-                {
+                {   
                     options.Formatter = (FormatterArgs args) =>
                     {
                         if (args.Exception == null) 
@@ -31,7 +33,6 @@ namespace Users.Api.Configuration
                     };
                 });
             });
-
         }
 
         public static void UseLogging(this WebApplication app, IConfiguration configuration) 
@@ -40,16 +41,13 @@ namespace Users.Api.Configuration
         }
 
         private static void ConfigureKissLog(IConfiguration configuration)
-        {
-            var organizationId = configuration["KissLog.OrganizationId"];
-
-            KissLogConfiguration.Listeners.Add(new RequestLogsApiListener(new Application(
-                configuration["KissLog.OrganizationId"],
-                configuration["KissLog.ApplicationId"]) 
-            )
-            {
-                ApiUrl = configuration["KissLog.ApiUrl"]
-            });
+        {   
+            KissLogConfiguration.Listeners.Add(
+                new RequestLogsApiListener(new Application(configuration["KissLog.OrganizationId"], configuration["KissLog.ApplicationId"]))
+                {
+                    ApiUrl = configuration["KissLog.ApiUrl"],
+                    Interceptor = new EndpointInterceptor(),
+                });
         }
 
 

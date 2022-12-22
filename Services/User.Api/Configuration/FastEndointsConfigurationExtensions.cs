@@ -15,9 +15,11 @@ namespace Users.Api.Configuration
 
         public static void UseFastendpointsConfiguration(this WebApplication app)
         {
-            app.UseFastEndpoints(f => 
+            app.UseFastEndpoints(c => 
             {
-                f.Errors.ResponseBuilder = (failures, _, statusCode) =>
+                c.Versioning.Prefix = "v";
+                c.Endpoints.RoutePrefix = "api";
+                c.Errors.ResponseBuilder = (failures, _, statusCode) =>
                 {
                     return new ValidationFailureResponse
                     {

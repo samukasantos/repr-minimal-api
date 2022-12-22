@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>407992c8-26ed-46e0-85f0-f5bb83da5acb</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,8 +13,8 @@
 	<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.5" />
 	<PackageReference Include="AspNetCore.HealthChecks.UI.SQLite.Storage" Version="6.0.5" />
     <PackageReference Include="Dapper" Version="2.0.123" />
-    <PackageReference Include="FastEndpoints" Version="5.5.0.3-beta" />
-    <PackageReference Include="FastEndpoints.Swagger" Version="5.5.0.3-beta" />
+    <PackageReference Include="FastEndpoints" Version="5.5.0" />
+    <PackageReference Include="FastEndpoints.Swagger" Version="5.5.0" />
     <PackageReference Include="KissLog.AspNetCore" Version="5.1.2" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.1" />
     <PackageReference Include="ValueOf" Version="2.0.31" />

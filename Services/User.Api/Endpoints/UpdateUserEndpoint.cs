@@ -7,7 +7,7 @@ using Users.Api.Services.Interfaces;
 
 namespace Users.Api.Endpoints
 {
-    [HttpPut("users/{id:guid}"), AllowAnonymous]
+    //[HttpPut("users/{id:guid}"), AllowAnonymous]
     public class UpdateUserEndpoint : Endpoint<UpdateUserRequest, UserResponse>
     {
         #region Fields
@@ -26,6 +26,13 @@ namespace Users.Api.Endpoints
         #endregion
 
         #region Methods
+
+        public override void Configure()
+        {
+            Put("users/{id:guid}");
+            AllowAnonymous();
+            //Version(1);
+        }
 
         public override async Task HandleAsync(UpdateUserRequest req, CancellationToken ct)
         {

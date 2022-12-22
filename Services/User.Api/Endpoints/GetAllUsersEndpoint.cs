@@ -6,14 +6,14 @@ using Users.Api.Services.Interfaces;
 
 namespace Users.Api.Endpoints
 {
-    [HttpGet("users"), AllowAnonymous]
+    //[HttpGet("users"), AllowAnonymous]
     public class GetAllUsersEndpoint : EndpointWithoutRequest<GetAllUserResponse>
     {
         #region Fields
 
         private readonly IUserService userService;
         private readonly ILogger<GetAllUsersEndpoint> logger;
-
+      
         #endregion
 
         #region Constructor
@@ -27,6 +27,13 @@ namespace Users.Api.Endpoints
         #endregion
 
         #region Methods
+
+        public override void Configure()
+        {
+            Get("users");
+            AllowAnonymous();
+            Version(1);
+        }
 
         public override async Task HandleAsync(CancellationToken ct)
         {
